@@ -1,12 +1,8 @@
 source $setup
 
-tar -xf $src
-mv MacOSX*.sdk $out
+set -x
 
-cd $out
-ruby -rjson \
-  -e "print JSON.load(File.read('SDKSettings.json')).fetch('Version')" \
-  > version.txt
+mkdir -p $out
+tar -C $out --strip-components 1 -xf $src
 
-# Make sure the STL headers are in the expected place.
-ls usr/include/c++/iterator > /dev/null
+xmlstarlet sel -t -v "/plist/dict/key[.='Version']/following-sibling::string[1]" "${out}/SDKSettings.plist" > $out/version.txt
