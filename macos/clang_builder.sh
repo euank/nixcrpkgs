@@ -22,9 +22,12 @@ cd build
 
 cmake ../llvm -GNinja -DDEFAULT_SYSROOT=$out -DCMAKE_INSTALL_PREFIX=$out $cmake_flags
 
-# We use -j1 below so we can avoid running out of RAM on
-# systems with several cores and little RAM.
+if [ ${NIX_BUILD_CORES:-0} = 0 ]; then
+    ninja_cores=$(nproc)
+else
+    ninja_cores=$NIX_BUILD_CORES
+fi
 
-ninja -j1
+ninja -j $ninja_cores
 
-ninja -j1 install
+ninja -j $ninja_cores install
