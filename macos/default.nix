@@ -87,6 +87,7 @@ let
     patches = [
       ./cctools-format.patch
       ./cctools-ld64-registers.patch
+      ./cctools-delete-sys-sysctl.h-includes.patch
     ];
     builder = ./ld_builder.sh;
     native_inputs = [ tapi ];
@@ -101,6 +102,7 @@ let
     patches = [
       ./cctools-format.patch
       ./cctools-bytesex.patch
+      ./cctools-delete-sys-sysctl.h-includes.patch
     ];
     inherit host;
   };
@@ -113,6 +115,7 @@ let
     patches = [
       ./cctools-format.patch
       ./cctools-libstuff-no-error.patch
+      ./cctools-delete-sys-sysctl.h-includes.patch
     ];
     inherit host ranlib;
   };
@@ -124,6 +127,7 @@ let
     builder = ./lipo_builder.sh;
     patches = [
       ./cctools-format.patch
+      ./cctools-delete-sys-sysctl.h-includes.patch
     ];
     inherit host;
   };
@@ -135,6 +139,7 @@ let
     builder = ./strip_builder.sh;
     patches = [
       ./cctools-format.patch
+      ./cctools-delete-sys-sysctl.h-includes.patch
     ];
     inherit host;
   };

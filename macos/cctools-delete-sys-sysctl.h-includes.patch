@@ -1,0 +1,200 @@
+From 1391e8924af129a8579d5b2b159bd0284e0b9dc9 Mon Sep 17 00:00:00 2001
+From: Euan Kemp <euank@euank.com>
+Date: Wed, 17 Mar 2021 06:13:27 +0000
+Subject: [PATCH] Delete sys/sysctl.h includes
+
+glibc deprecated it in 2.32, see https://sourceware.org/pipermail/libc-announce/2020/000029.html
+---
+ cctools/include/foreign/sys/sysctl.h        | 1 -
+ cctools/ld64/src/3rd/helper.c               | 1 -
+ cctools/ld64/src/ld/InputFiles.cpp          | 2 --
+ cctools/ld64/src/ld/InputFiles.h            | 1 -
+ cctools/ld64/src/ld/Options.cpp             | 1 -
+ cctools/ld64/src/ld/OutputFile.cpp          | 1 -
+ cctools/ld64/src/ld/OutputFile.h            | 1 -
+ cctools/ld64/src/ld/Resolver.cpp            | 1 -
+ cctools/ld64/src/ld/Resolver.h              | 1 -
+ cctools/ld64/src/ld/SymbolTable.cpp         | 1 -
+ cctools/ld64/src/ld/SymbolTable.h           | 1 -
+ cctools/ld64/src/ld/ld.cpp                  | 1 -
+ cctools/libstuff/macosx_deployment_target.c | 1 -
+ cctools/libstuff/port.c                     | 1 -
+ 14 files changed, 15 deletions(-)
+
+diff --git a/cctools/include/foreign/sys/sysctl.h b/cctools/include/foreign/sys/sysctl.h
+index 30749d1..5ae939c 100644
+--- a/cctools/include/foreign/sys/sysctl.h
++++ b/cctools/include/foreign/sys/sysctl.h
+@@ -1,5 +1,4 @@
+ #ifndef __CYGWIN__
+-#include_next <sys/sysctl.h>
+ #else
+ #ifndef __SYSCTL_H__
+ #define __SYSCTL_H__
+diff --git a/cctools/ld64/src/3rd/helper.c b/cctools/ld64/src/3rd/helper.c
+index 14bc11d..8b25029 100644
+--- a/cctools/ld64/src/3rd/helper.c
++++ b/cctools/ld64/src/3rd/helper.c
+@@ -19,7 +19,6 @@ const char ldVersionString[] = "@(#)PROGRAM:ld  PROJECT:ld64-274.2\n";
+ #include <assert.h>
+ 
+ #if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+-#include <sys/sysctl.h>
+ #endif
+ 
+ #ifdef __OpenBSD__
+diff --git a/cctools/ld64/src/ld/InputFiles.cpp b/cctools/ld64/src/ld/InputFiles.cpp
+index c8ee709..c1fbea2 100644
+--- a/cctools/ld64/src/ld/InputFiles.cpp
++++ b/cctools/ld64/src/ld/InputFiles.cpp
+@@ -28,7 +28,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+-#include <sys/sysctl.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <limits.h>
+@@ -40,7 +39,6 @@
+ #include <dlfcn.h>
+ #include <mach-o/dyld.h>
+ #include <mach-o/fat.h>
+-#include <sys/sysctl.h>
+ #include <libkern/OSAtomic.h>
+ 
+ // ld64-port
+diff --git a/cctools/ld64/src/ld/InputFiles.h b/cctools/ld64/src/ld/InputFiles.h
+index 21f878a..3ea203f 100644
+--- a/cctools/ld64/src/ld/InputFiles.h
++++ b/cctools/ld64/src/ld/InputFiles.h
+@@ -31,7 +31,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+-#include <sys/sysctl.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <limits.h>
+diff --git a/cctools/ld64/src/ld/Options.cpp b/cctools/ld64/src/ld/Options.cpp
+index 7aa6938..2564ba2 100644
+--- a/cctools/ld64/src/ld/Options.cpp
++++ b/cctools/ld64/src/ld/Options.cpp
+@@ -27,7 +27,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <mach/vm_prot.h>
+-#include <sys/sysctl.h>
+ #include <mach-o/dyld.h>
+ #include <fcntl.h>
+ #include <errno.h>
+diff --git a/cctools/ld64/src/ld/OutputFile.cpp b/cctools/ld64/src/ld/OutputFile.cpp
+index 8859882..0646174 100644
+--- a/cctools/ld64/src/ld/OutputFile.cpp
++++ b/cctools/ld64/src/ld/OutputFile.cpp
+@@ -27,7 +27,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+-#include <sys/sysctl.h>
+ #include <sys/param.h>
+ #include <sys/mount.h>
+ #include <signal.h> // ld64-port
+diff --git a/cctools/ld64/src/ld/OutputFile.h b/cctools/ld64/src/ld/OutputFile.h
+index 81f2cfb..e3125dc 100644
+--- a/cctools/ld64/src/ld/OutputFile.h
++++ b/cctools/ld64/src/ld/OutputFile.h
+@@ -29,7 +29,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+-#include <sys/sysctl.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <limits.h>
+diff --git a/cctools/ld64/src/ld/Resolver.cpp b/cctools/ld64/src/ld/Resolver.cpp
+index 1ce781c..078a2e3 100644
+--- a/cctools/ld64/src/ld/Resolver.cpp
++++ b/cctools/ld64/src/ld/Resolver.cpp
+@@ -27,7 +27,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+-#include <sys/sysctl.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <limits.h>
+diff --git a/cctools/ld64/src/ld/Resolver.h b/cctools/ld64/src/ld/Resolver.h
+index 06b7a8b..32e5471 100644
+--- a/cctools/ld64/src/ld/Resolver.h
++++ b/cctools/ld64/src/ld/Resolver.h
+@@ -29,7 +29,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+-#include <sys/sysctl.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <limits.h>
+diff --git a/cctools/ld64/src/ld/SymbolTable.cpp b/cctools/ld64/src/ld/SymbolTable.cpp
+index c8dbcba..4da8c74 100644
+--- a/cctools/ld64/src/ld/SymbolTable.cpp
++++ b/cctools/ld64/src/ld/SymbolTable.cpp
+@@ -27,7 +27,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+-#include <sys/sysctl.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <limits.h>
+diff --git a/cctools/ld64/src/ld/SymbolTable.h b/cctools/ld64/src/ld/SymbolTable.h
+index 2708f1f..d3b9301 100644
+--- a/cctools/ld64/src/ld/SymbolTable.h
++++ b/cctools/ld64/src/ld/SymbolTable.h
+@@ -29,7 +29,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+-#include <sys/sysctl.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <limits.h>
+diff --git a/cctools/ld64/src/ld/ld.cpp b/cctools/ld64/src/ld/ld.cpp
+index 13ccf5c..d675f3b 100644
+--- a/cctools/ld64/src/ld/ld.cpp
++++ b/cctools/ld64/src/ld/ld.cpp
+@@ -32,7 +32,6 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+-#include <sys/sysctl.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <limits.h>
+diff --git a/cctools/libstuff/macosx_deployment_target.c b/cctools/libstuff/macosx_deployment_target.c
+index f8cd0f6..9f32d02 100644
+--- a/cctools/libstuff/macosx_deployment_target.c
++++ b/cctools/libstuff/macosx_deployment_target.c
+@@ -26,7 +26,6 @@
+ #include <string.h>
+ #include <mach/mach.h>
+ #include <sys/types.h>
+-#include <sys/sysctl.h>
+ #include "stuff/errors.h"
+ #include "stuff/allocate.h"
+ #include "stuff/macosx_deployment_target.h"
+diff --git a/cctools/libstuff/port.c b/cctools/libstuff/port.c
+index 1137dc8..6b6ad7c 100644
+--- a/cctools/libstuff/port.c
++++ b/cctools/libstuff/port.c
+@@ -51,7 +51,6 @@ char *find_clang()
+ #include <mach/host_info.h>
+ 
+ #if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+-#include <sys/sysctl.h>
+ #endif
+ 
+ #ifdef __OpenBSD__
+-- 
+2.30.1
+
